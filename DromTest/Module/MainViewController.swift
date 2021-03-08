@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol IMainViewController
+{
+	func refresh()
+}
+
 class MainViewController: UIViewController {
 
 	override func viewDidLoad() {
@@ -14,3 +19,9 @@ class MainViewController: UIViewController {
 	}
 }
 
+extension MainViewController: IMainViewController
+{
+	func refresh() {
+		
+	}
+}
