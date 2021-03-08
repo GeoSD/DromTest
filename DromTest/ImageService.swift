@@ -12,6 +12,7 @@ typealias ImageResult = Result<UIImage, LoadError>
 protocol IImageService
 {
 	var getSourceUrls: [String] { get }
+
 	func loadImage(_ url: URL, _ completion: @escaping (ImageResult) -> Void) -> UUID?
 	func cancelLoad(_ uuid: UUID)
 	func resetCache()
