@@ -11,7 +11,7 @@ protocol IPresenter
 {
 	var numberOfItems: Int { get }
 
-	func willDisplay(cell: IImageViewCell, at index: Int)
+	func willDisplay(cell: ImageViewCell, at index: Int)
 	func didEndDisplaying(at index: Int)
 	func selectItem(at index: Int, completion: @escaping () -> Void)
 	func refreshData(vc: IMainViewController)
@@ -33,7 +33,7 @@ extension Presenter: IPresenter
 		return interactor.getNumberOfItems
 	}
 
-	func willDisplay(cell: IImageViewCell, at index: Int) {
+	func willDisplay(cell: ImageViewCell, at index: Int) {
 		cell.startLoad()
 		let uuid = self.interactor.startLoading(for: index) { result in
 			switch result {

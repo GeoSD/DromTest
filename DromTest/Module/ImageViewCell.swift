@@ -7,30 +7,26 @@
 
 import UIKit
 
-protocol IImageViewCell: AnyObject
-{
-	func startLoad()
-	func endLoad(image: UIImage?)
-	var completion: () -> Void { get }
-}
-
 class ImageViewCell: UICollectionViewCell
 {
 	static let cellId = String(describing: self)
 
 	private let imageView = UIImageView()
-	private let activityIndicator = UIActivityIndicatorView()
 
-	var completion: () -> Void = {
-		assertionFailure("Completion must be implemented")
-	}
+	private var imageViewCenterXConstraint = NSLayoutConstraint()
+	private let activityIndicator = UIActivityIndicatorView()
 
 	override var isSelected: Bool {
 		didSet {
 			UIView.animate(withDuration: 1) { [weak self] in
 				guard let self = self else { return }
-				self.transform = CGAffineTransform(translationX: -self.bounds.width, y: 0)
-				self.completion()
+				NSLayoutConstraint.deactivate([
+					self.imageViewCenterXConstraint
+				])
+				NSLayoutConstraint.activate([
+					self.imageView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor, constant: self.bounds.width * 2)
+				])
+				self.layoutIfNeeded()
 			}
 		}
 	}
@@ -48,11 +44,18 @@ class ImageViewCell: UICollectionViewCell
 		self.activityIndicator.translatesAutoresizingMaskIntoConstraints = false
 		self.contentView.addSubview(self.activityIndicator)
 
+		self.imageViewCenterXConstraint = self.imageView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor)
+
 		NSLayoutConstraint.activate([
-			self.imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-			self.imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-			self.imageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
-			self.imageView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
+			self.imageView.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
+			self.imageView.heightAnchor.constraint(equalTo: self.contentView.heightAnchor),
+			self.imageViewCenterXConstraint,
+			self.imageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+
+//			self.imageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+//			self.imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+//			self.imageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
+//			self.imageView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor),
 
 			self.activityIndicator.centerXAnchor.constraint(equalTo: self.imageView.centerXAnchor),
 			self.activityIndicator.centerYAnchor.constraint(equalTo: self.imageView.centerYAnchor)
@@ -63,10 +66,7 @@ class ImageViewCell: UICollectionViewCell
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
-}
 
-extension ImageViewCell: IImageViewCell
-{
 	func startLoad() {
 		DispatchQueue.main.async {
 			self.activityIndicator.startAnimating()
