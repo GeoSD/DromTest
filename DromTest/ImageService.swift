@@ -28,12 +28,12 @@ extension ImageService: IImageService
 {
 	var getSourceUrls: [String] {
 		return [
-			"https://images7.alphacoders.com/867/867279.jpg",
-			"https://images8.alphacoders.com/463/463477.jpg",
-			"https://images6.alphacoders.com/613/613924.jpg",
-			"https://images2.alphacoders.com/703/703553.jpg",
-			"https://images2.alphacoders.com/159/159692.jpg",
-			"https://images8.alphacoders.com/867/867237.jpg"
+			"https://wallpapersmug.com/download/800x600/926dad/iron-man-superhero-4k.jpg",
+			"https://wallpapersmug.com/download/800x600/371e97/iron-man-new-suit-artwork.jpg",
+			"https://wallpapersmug.com/download/800x600/b83b9f/night-iron-man-4k-illustration.jpg",
+			"https://wallpapersmug.com/download/800x600/4166f9/iron-man-minimal-art.jpg",
+			"https://wallpapersmug.com/download/800x600/190a22/iron-man-armor-mark-vii.jpg",
+			"https://wallpapersmug.com/download/800x600/d713f4/iron-man-and-captain-america-movie-artwork.jpg"
 		]
 	}
 
